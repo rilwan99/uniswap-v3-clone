@@ -7,12 +7,9 @@ import "./interfaces/IUniswapV3SwapCallback.sol";
 
 import "./lib/Position.sol";
 import "./lib/Tick.sol";
-import "./lib/TickBitmap.sol";
 
 contract UniswapV3Pool {
-    using TickBitmap for mapping(int16 => uint256);
-    mapping(int16 => uint256) public tickBitmap;
-
+    using Tick for mapping(int24 => Tick.Info);
     using Position for mapping(bytes32 => Position.Info);
     using Position for Position.Info;
 
@@ -138,10 +135,10 @@ contract UniswapV3Pool {
         );
     }
 
-    function swap(
-        address recipient,
-        bytes calldata data
-    ) public returns (int256 amount0, int256 amount1) {
+    function swap(address recipient, bytes calldata data)
+        public
+        returns (int256 amount0, int256 amount1)
+    {
         int24 nextTick = 85184;
         uint160 nextPrice = 5604469350942327889444743441197;
 
