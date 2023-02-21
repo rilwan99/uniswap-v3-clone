@@ -7,9 +7,12 @@ import "./interfaces/IUniswapV3SwapCallback.sol";
 
 import "./lib/Position.sol";
 import "./lib/Tick.sol";
+import "./lib/TickBitmap.sol";
 
 contract UniswapV3Pool {
-    using Tick for mapping(int24 => Tick.Info);
+    using TickBitmap for mapping(int16 => uint256);
+    mapping(int16 => uint256) public tickBitmap;
+
     using Position for mapping(bytes32 => Position.Info);
     using Position for Position.Info;
 
